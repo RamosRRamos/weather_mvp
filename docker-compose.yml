@@ -1,0 +1,53 @@
+services:
+  db:
+    image: "postgres:alpine"
+    environment:
+      - POSTGRES_USER=mini_blog
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mini_blog
+    ports:
+      - "5432:5432"
+    volumes:
+      - dbdata:/var/lib/postgresql/data:delegated
+
+  broker:
+    image: "rabbitmq:alpine"
+    ports:
+      - "5672:5672"  # Porta padrão do RabbitMQ para se comunicar com Celery
+
+  result:
+    image: "redis:alpine"
+    ports:
+      - "6000:6000"
+
+  weatherservice:
+    build:
+      dockerfile: Dockerfile
+      context: ./back_end/weather_api_service
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./back_end/weather_api_service:/home/user/app/
+    env_file: ./back_end/weather_api_service/.env
+    depends_on:
+      - db
+      - broker
+      - result
+
+  weatherservice_celery:
+    build:
+      dockerfile: Dockerfile
+      context: ./back_end/weather_api_service
+    command: celery --app=weather_api_service worker --loglevel=info
+    volumes:
+      - ./back_end/weather_api_service:/home/user/app/
+    env_file: ./back_end/weather_api_service/.env
+    depends_on:
+      - db
+      - broker
+      - result
+
+volumes:
+  dbdata:
+    name: weather_mvp_dbdata
+

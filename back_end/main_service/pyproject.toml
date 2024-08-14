@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "weather-mvp"
+version = "0.1.0"
+description = ""
+authors = ["Wesley <wesley.rl@tuta.io>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.1"
+djangorestframework = "^3.15.2"
+pytest = "^8.3.2"
+requests = "^2.32.3"
+python-decouple = "^3.8"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.5.7"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

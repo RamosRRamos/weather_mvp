@@ -1,0 +1,14 @@
+{
+    "exclude": ["tests", "venv"],
+    "tests": [
+        "B101", "B102", "B301"
+    ],
+    "skips": [
+        "B303"
+    ],
+    "severity": {
+        "B101": "LOW",
+        "B102": "HIGH",
+        "B301": "MEDIUM"
+    }
+}
