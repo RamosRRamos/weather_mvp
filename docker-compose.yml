@@ -74,6 +74,33 @@ services:
       - broker
       - result
 
+  mainservice:
+    build:
+      dockerfile: Dockerfile
+      context: ./back_end/main_service
+    ports:
+      - "8002:8000"  # Verifique se o serviço realmente usa a porta 8000 no contêiner
+    volumes:
+      - ./back_end/main_service:/home/user/app/
+    env_file: ./back_end/main_service/.env
+    depends_on:
+      - db
+      - broker
+      - result
+
+  mainservice_celery:
+    build:
+      dockerfile: Dockerfile
+      context: ./back_end/main_service
+    command: celery --app=main_service worker --loglevel=info
+    volumes:
+      - ./back_end/main_service:/home/user/app/
+    env_file: ./back_end/main_service/.env
+    depends_on:
+      - db
+      - broker
+      - result
+
 volumes:
   dbdata:
     name: weather_mvp_dbdata
