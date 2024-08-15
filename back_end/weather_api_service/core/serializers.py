@@ -21,7 +21,6 @@ class LogConsultWhatherSerializer(serializers.ModelSerializer):
             "data",
             "data_hash",
             "request_code",
-
         ]
 
     def create(self, validated_data):

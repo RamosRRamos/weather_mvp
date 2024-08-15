@@ -47,7 +47,7 @@ MIDDLEWARE = [
     "django_guid.middleware.guid_middleware",
 ]
 
-ROOT_URLCONF = "weather_api_service.urls"
+ROOT_URLCONF = "openai_service.urls"
 
 TEMPLATES = [
     {
@@ -65,7 +65,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "weather_api_service.wsgi.application"
+WSGI_APPLICATION = "openai_service.wsgi.application"
 
 AUTH_PASSWORD_VALIDATORS = [
     {

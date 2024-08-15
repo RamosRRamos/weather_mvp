@@ -1,7 +1,6 @@
 from requests.models import Response
 from unittest.mock import patch, Mock
 
-
 from common.snippets import get_weather
 
 
@@ -16,6 +15,5 @@ def test_get_weather(mock_get):
     # Chamar a função
     city = "London"
     response = get_weather(city)
-
     # Verificar se a resposta está correta
     assert response.json() == expected_data
