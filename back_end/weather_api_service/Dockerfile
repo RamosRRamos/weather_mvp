@@ -28,4 +28,4 @@ RUN poetry install --with dev --no-root --no-interaction --no-ansi
 USER user
 
 # Define the entry point
-CMD gunicorn weather_api_service.wsgi --log-file - -b 0.0.0.0:8000 --reload
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

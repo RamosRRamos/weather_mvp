@@ -18,14 +18,14 @@ services:
   result:
     image: "redis:alpine"
     ports:
-      - "6000:6000"
+      - "6379:6379"  # Porta padrão do Redis
 
   weatherservice:
     build:
       dockerfile: Dockerfile
       context: ./back_end/weather_api_service
     ports:
-      - "8000:8000"
+      - "8001:8000"  # Verifique se o serviço realmente usa a porta 8000 no contêiner
     volumes:
       - ./back_end/weather_api_service:/home/user/app/
     env_file: ./back_end/weather_api_service/.env
@@ -47,7 +47,33 @@ services:
       - broker
       - result
 
+  openiaservice:
+    build:
+      dockerfile: Dockerfile
+      context: ./back_end/openai_service
+    ports:
+      - "8002:8000"  # Verifique se o serviço realmente usa a porta 8000 no contêiner
+    volumes:
+      - ./back_end/openai_service:/home/user/app/
+    env_file: ./back_end/openai_service/.env
+    depends_on:
+      - db
+      - broker
+      - result
+
+  openiaservice_celery:
+    build:
+      dockerfile: Dockerfile
+      context: ./back_end/openai_service
+    command: celery --app=openai_service worker --loglevel=info
+    volumes:
+      - ./back_end/openai_service:/home/user/app/
+    env_file: ./back_end/openai_service/.env
+    depends_on:
+      - db
+      - broker
+      - result
+
 volumes:
   dbdata:
     name: weather_mvp_dbdata
-
