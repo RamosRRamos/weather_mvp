@@ -55,3 +55,9 @@ tmp_email/
 #services env
 
 /back_end/weather_api_service/venv/
+/back_end/openai_service/venv/
+/back_end/main_service/venv/
+
+
+poetry.lock
+
