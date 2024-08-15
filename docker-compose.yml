@@ -25,7 +25,7 @@ services:
       dockerfile: Dockerfile
       context: ./back_end/weather_api_service
     ports:
-      - "8001:8000"  # Verifique se o serviço realmente usa a porta 8000 no contêiner
+      - "8801:8000"  # Verifique se o serviço realmente usa a porta 8000 no contêiner
     volumes:
       - ./back_end/weather_api_service:/home/user/app/
     env_file: ./back_end/weather_api_service/.env
@@ -52,7 +52,7 @@ services:
       dockerfile: Dockerfile
       context: ./back_end/openai_service
     ports:
-      - "8002:8000"  # Verifique se o serviço realmente usa a porta 8000 no contêiner
+      - "8802:8000"  # Verifique se o serviço realmente usa a porta 8000 no contêiner
     volumes:
       - ./back_end/openai_service:/home/user/app/
     env_file: ./back_end/openai_service/.env
@@ -69,6 +69,33 @@ services:
     volumes:
       - ./back_end/openai_service:/home/user/app/
     env_file: ./back_end/openai_service/.env
+    depends_on:
+      - db
+      - broker
+      - result
+
+  mainservice:
+    build:
+      dockerfile: Dockerfile
+      context: ./back_end/main_service
+    ports:
+      - "8803:8000"  # Verifique se o serviço realmente usa a porta 8000 no contêiner
+    volumes:
+      - ./back_end/main_service:/home/user/app/
+    env_file: ./back_end/main_service/.env
+    depends_on:
+      - db
+      - broker
+      - result
+
+  mainservice_celery:
+    build:
+      dockerfile: Dockerfile
+      context: ./back_end/main_service
+    command: celery --app=main_service worker --loglevel=info
+    volumes:
+      - ./back_end/main_service:/home/user/app/
+    env_file: ./back_end/main_service/.env
     depends_on:
       - db
       - broker
