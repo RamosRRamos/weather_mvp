@@ -160,19 +160,20 @@ PERMISSIONS_POLICY = {}
 # Django-CSP
 CSP_INCLUDE_NONCE_IN = ["script-src", "style-src", "font-src"]
 CSP_SCRIPT_SRC = [
-                     "'self'",
-                     "'unsafe-inline'",
-                     "'unsafe-eval'",
-                     "https://browser.sentry-cdn.com", "https://weatherapiservice.wrlcode.com",
-                     # drf-spectacular UI (Swagger and ReDoc)
-                     "https://cdn.jsdelivr.net/npm/swagger-ui-dist@latest/",
-                     "https://cdn.jsdelivr.net/npm/redoc@latest/",
-                     "blob:",
-                 ] + [f"*{host}" if host.startswith(".") else host for host in ALLOWED_HOSTS]
+    "'self'",
+    "'unsafe-inline'",
+    "'unsafe-eval'",
+    "https://browser.sentry-cdn.com",
+    "https://weatherapiservice.wrlcode.com",
+    # drf-spectacular UI (Swagger and ReDoc)
+    "https://cdn.jsdelivr.net/npm/swagger-ui-dist@latest/",
+    "https://cdn.jsdelivr.net/npm/redoc@latest/",
+    "blob:",
+] + [f"*{host}" if host.startswith(".") else host for host in ALLOWED_HOSTS]
 CSP_CONNECT_SRC = [
-                      "'self'",
-                      "*.sentry.io",
-                  ] + [f"*{host}" if host.startswith(".") else host for host in ALLOWED_HOSTS]
+    "'self'",
+    "*.sentry.io",
+] + [f"*{host}" if host.startswith(".") else host for host in ALLOWED_HOSTS]
 CSP_STYLE_SRC = [
     "'self'",
     "'unsafe-inline'",
@@ -182,11 +183,11 @@ CSP_STYLE_SRC = [
     "https://fonts.googleapis.com",
 ]
 CSP_FONT_SRC = [
-                   "'self'",
-                   "'unsafe-inline'",
-                   # drf-spectacular UI (Swagger and ReDoc)
-                   "https://fonts.gstatic.com",
-               ] + [f"*{host}" if host.startswith(".") else host for host in ALLOWED_HOSTS]
+    "'self'",
+    "'unsafe-inline'",
+    # drf-spectacular UI (Swagger and ReDoc)
+    "https://fonts.gstatic.com",
+] + [f"*{host}" if host.startswith(".") else host for host in ALLOWED_HOSTS]
 CSP_IMG_SRC = [
     "'self'",
     # drf-spectacular UI (Swagger and ReDoc)
