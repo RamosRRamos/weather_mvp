@@ -13,19 +13,19 @@ services:
   broker:
     image: "rabbitmq:alpine"
     ports:
-      - "5672:5672"  # Porta padrão do RabbitMQ para se comunicar com Celery
+      - "5672:5672"  # RabbitMQ's standard port for communicating with Celery
 
   result:
     image: "redis:alpine"
     ports:
-      - "6379:6379"  # Porta padrão do Redis
+      - "6379:6379"  # Redis default port
 
   weatherservice:
     build:
       dockerfile: Dockerfile
       context: ./back_end/weather_api_service
     ports:
-      - "8801:8000"  # Verifique se o serviço realmente usa a porta 8000 no contêiner
+      - "8801:8000"  # Check that the service actually uses port 8000 in the container
     volumes:
       - ./back_end/weather_api_service:/home/user/app/
     env_file: ./back_end/weather_api_service/.env
@@ -52,7 +52,7 @@ services:
       dockerfile: Dockerfile
       context: ./back_end/openai_service
     ports:
-      - "8802:8000"  # Verifique se o serviço realmente usa a porta 8000 no contêiner
+      - "8802:8000"  # Check that the service actually uses port 8000 in the container
     volumes:
       - ./back_end/openai_service:/home/user/app/
     env_file: ./back_end/openai_service/.env
@@ -79,7 +79,7 @@ services:
       dockerfile: Dockerfile
       context: ./back_end/main_service
     ports:
-      - "8803:8000"  # Verifique se o serviço realmente usa a porta 8000 no contêiner
+      - "8803:8000"  # Check that the service actually uses port 8000 in the container
     volumes:
       - ./back_end/main_service:/home/user/app/
     env_file: ./back_end/main_service/.env
